@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <title>James Cook University Datalogger</title>
+    <!-- CDN Stylesheets -->
+    <link id="datatables-css" rel="stylesheet" href="./lib/jquery-datatable.css">
+    <link id="font-awesome-css" rel="stylesheet" href="./lib/font-awesome.css">
+    <link id="font-awesome-css" rel="stylesheet" href="./lib/styles.css">
+</head>
+
+<body>
+    <div id="confirmModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+        <div style="background:white; padding:20px; margin:15% auto; width:80%; max-width:600px; border-radius:5px;">
+            <h3>Confirm Configuration Changes</h3>
+            <div id="changesList"></div>
+            <button id="confirmChanges">Confirm</button>
+            <button id="cancelChanges">Cancel</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="banner-c">
+                <h1>ESP32 Datalogger</h1>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="./status.html">Status</a></li>
+                <li><a href="./data.html">Data</a></li>
+                <li><a href="./settings.html">Settings</a></li>
+                <li><a href="/update">Update</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <section id="settings" class="card">
+                <h2>Settings</h2>
+                <div id="config-container" class="config-section">
+                    <!-- Configuration settings will be dynamically added here -->
+                </div>
+                <button id="getConfigBtn" class="btn">Get Config</button>
+                <button id="updateConfig" class="btn" disabled>Update Config</button>
+                <button id="hideConfig" class="btn" disabled>Hide Config</button>
+                <button id="showConfig" class="btn" disabled>Show Config</button>
+                <div class="config-group">
+                    <h3>Custom Command</h3>
+
+                    <!-- This will be the common textbox that appears on hover -->
+
+                    <button id="sendPollBtn" class="hover-element btn"
+                        data-info="Requests state and values of datalogger processes and updates the textboxes at the top of the page. Poll requests every 5 seconds by default. Change poll? dropdown to false in banner to pause.">Poll</button>
+                    <button id="updateTimestampBtn" class="hover-element btn"
+                        data-info="Updates timestamp of logger using PC time.">Update Timestamp</button>
+                    <button id="startMeasurementBtn" class="hover-element btn"
+                        data-info="Triggers a manual measurement cycle. LED on logger should illuminate and startMeasurement variable above should turn to true if polling is enabled.">Trigger
+                        Manual Measurement</button>
+                    <a href="/OPUS.json"><button id="opusFileDirect" class="hover-element btn"
+                            data-info="Opens up OPUS.json file directly in browser. (This can take a while, refresh URL if file does not load within a few minutes)">View
+                            Raw OPUS data</button></a>
+                    <a href="/NICO.json"><button id="nicoFileDirect" class="hover-element btn"
+                            data-info="Opens up NICO.json file directly in browser. (This can take a while, refresh URL if file does not load within a few minutes)">View
+                            Raw NICO data</button></a>
+                    <div>
+                        <h4>Useful commands:</h4>
+                        <ul>
+                            <li>resetopusfile (resets OPUS storage file)</li>
+                            <li>resetnicofile (resets NICO storage file)</li>
+                            <li>forcemodemcycleoff (attempts to force modem reset through program cycle)</li>
+                            <li>forcemodemoff (attempts to directly power off modem)</li>
+                            <li>testcheckcommand (retrieves a timestamp from the webserver)</li>
+                            <li>testpost (attempts to upload data to server)</li>
+                            <li>printjson=[NICO/OPUS],[optional:fromDate{dd/mm/yyyy hh:mm}],[n rows from end] (prints
+                                data from storage based from timestamp input or 'n' rows from end of file)</li>
+                            <li>reset (forces program reset)</li>
+                        </ul>
+                    </div>
+                    <select id="presetCommands">
+                        <option value="">Select a command</option>
+                        <option value="triosgetfirmware">Get Trios Firmware</option>
+                        <option value="triosgettimestamp">Get Trios Timestamp</option>
+                        <option value="triosgetname">Get Trios Sensor Name</option>
+                        <option value="triossetmeasurement">Trigger Trios Measurement</option>
+                        <option value="triosgetmeasurement">Get Trios Measurement</option>
+                        <option value="setotamode on">Enter OTA Mode</option>
+                        <option value="setotamode off">Exit OTA Mode</option>
+                        <option value="setatmode on">Enter AT Mode</option>
+                        <option value="setatmode off">Exit AT Mode</option>
+                        <option value="poll">Poll System Status</option>
+                        <option value="setsensortype nico">Set Sensor Type to NICO</option>
+                        <option value="setsensortype opus">Set Sensor Type to OPUS</option>
+                        <option value="setmeasurementcycle">Trigger Measurement Cycle</option>
+                        <option value="settimestamp">Set Timestamp</option>
+                        <option value="reset">Reset System</option>
+                        <option value="setmodem on">Keep Modem On</option>
+                        <option value="setmodem off">Turn Modem Off</option>
+                        <option value="getgnss">Obtain GNSS Data</option>
+                        <option value="getmodemstate">Get Modem State</option>
+                        <option value="getclientstate">Get Client State</option>
+                        <option value="getmodbusresultcode">Get Modbus Result Code</option>
+                        <option value="measuresdi">Measure SDI</option>
+                        <option value="setmcpoutput">Set MCP Output</option>
+                        <option value="setmcpinput">Set MCP Input</option>
+                        <option value="setrowsupload">Set Rows to Upload (30)</option>
+                        <option value="jsonformat">Force JSON Format</option>
+                        <option value="savemeas">Save Last Measurement</option>
+                        <option value="printjson=">Print JSON Data (Specify Parameters)</option>
+                        <option value="updatejson=">Update JSON Configuration (Specify Parameters)</option>
+                        <option value="getconfig">Get Current Configuration</option>
+                        <option value="testpost">Test POST Request</option>
+                        <option value="testcheckcommand">Test Check Command from Server</option>
+                        <option value="getgloballog">Get Global Log</option>
+                        <option value="forcemodemoff">Force Modem Off</option>
+                        <option value="readmodemstatuspin">Read Modem Status Pin</option>
+                        <option value="dtrlow">Set DTR Low</option>
+                        <option value="dtrhigh">Set DTR High</option>
+                        <option value="forcemodemcycleon">Force Modem Power On</option>
+                        <option value="forcemodemcycleoff">Force Modem Power Off</option>
+                        <option value="restartneworkcycle">Restart Network Cycle</option>
+                        <option value="getbatteryamprating">Get Battery Amp-Hour Rating</option>
+                        <option value="resetbatterymonitor">Reset Battery Monitoring</option>
+
+                    </select>
+                    <input id="customCommandInput" type="text">
+                    <button id="sendCustomCommand" class="btn">Send</button>
+                    <textarea id="log" style="width:100%; height:200px;"></textarea>
+                    <button id="clearLog" class="btn">Clear Log</button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <button id="backToTop" title="Go to top">↑</button>
+    <div id="hover-textbox"></div>
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/moment.js"></script>
+    <script src="./lib/settings.js"></script>
+    <script>
+        const hoverElements = document.querySelectorAll('.hover-element');
+        const hoverTextbox = document.getElementById('hover-textbox');
+
+        hoverElements.forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                // Get the information from the element's data-info attribute
+                const info = element.getAttribute('data-info');
+
+                // Set the content of the hover-textbox to the info
+                hoverTextbox.textContent = info;
+
+                // Position the hover-textbox near the cursor
+                hoverTextbox.style.left = `${e.pageX + 10}px`;
+                hoverTextbox.style.top = `${e.pageY + 10}px`;
+
+                // Display the hover-textbox
+                hoverTextbox.style.display = 'block';
+            });
+
+            element.addEventListener('mouseleave', () => {
+                // Hide the hover-textbox when the cursor leaves the element
+                hoverTextbox.style.display = 'none';
+            });
+        });
+
+        // Back to top button functionality
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("backToTop").style.display = "block";
+            } else {
+                document.getElementById("backToTop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        document.getElementById("backToTop").onclick = function () {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+
+</body>
+
+</html>

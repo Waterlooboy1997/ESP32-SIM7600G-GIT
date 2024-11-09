@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <title>James Cook University Datalogger</title>
+    <!-- CDN Stylesheets -->
+    <link id="datatables-css" rel="stylesheet" href="./lib/jquery-datatable.css">
+    <link id="font-awesome-css" rel="stylesheet" href="./lib/font-awesome.css">
+    <link id="font-awesome-css" rel="stylesheet" href="./lib/styles.css">
+</head>
+
+<body>
+    <div id="confirmModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+        <div style="background:white; padding:20px; margin:15% auto; width:80%; max-width:600px; border-radius:5px;">
+            <h3>Confirm Configuration Changes</h3>
+            <div id="changesList"></div>
+            <button id="confirmChanges">Confirm</button>
+            <button id="cancelChanges">Cancel</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="banner-c">
+                <h1>ESP32 Datalogger</h1>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="./status.html">Status</a></li>
+                <li><a href="./data.html">Data</a></li>
+                <li><a href="./settings.html">Settings</a></li>
+                <li><a href="/update">Update</a></li>
+                <li><a><label for="toPoll">Poll?</label></a><select id="toPoll">
+                        <option>False</option>
+                        <option selected>True</option>
+                    </select></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <section id="info" class="card">
+                <h2>Logger Information</h2>
+                <div class="config-section">
+                    <div class="config-group">
+                        <h3>System Information</h3>
+                        <div class="config-item">
+                            <label for="espts">Esp32 Timestamp:</label>
+                            <input type="text" id="espts" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="rtcts">RTC Timestamp:</label>
+                            <input type="text" id="rtcts" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="battV">External Battery Voltage (v):</label>
+                            <input type="text" id="battV" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="lipo">18650 Battery Voltage (mV):</label>
+                            <input type="text" id="lipo" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="draw">Current Draw (mA):</label>
+                            <input type="text" id="draw" disabled>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <h3>Storage Information</h3>
+                        <div class="config-item">
+                            <label for="fsFill">Filesystem Fill (%):</label>
+                            <input type="text" id="fsFill" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="rows">Rows To Upload:</label>
+                            <input type="text" id="rows" disabled>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <h3>System States</h3>
+                        <div class="config-item">
+                            <label for="rtcinit">Real-time-clock Initialised:</label>
+                            <input type="text" id="rtcinit" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="espRtcInit">ESP32-clock Initialised:</label>
+                            <input type="text" id="espRtcInit" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="mcpInit">IO-expander Initialised:</label>
+                            <input type="text" id="mcpInit" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="meas">Measurement state:</label>
+                            <input type="text" id="meas" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="sampleInt">Measurement interval:</label>
+                            <input type="text" id="sampleInt" disabled>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <h3>Modem Information</h3>
+                        <div class="config-item">
+                            <label for="simPowered">Modem power state:</label>
+                            <input type="text" id="simPowered" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="clientS">Modem client state:</label>
+                            <input type="text" id="clientS" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="modemS">Modem cycle state:</label>
+                            <input type="text" id="modemS" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="networkS">Network cycle state:</label>
+                            <input type="text" id="networkS" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="ccid">Sim CCID:</label>
+                            <input type="text" id="ccid" disabled>
+                        </div>
+                        <div class="config-item">
+                            <label for="signal">Network signal quality:</label>
+                            <input type="text" id="signal" disabled>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <button id="backToTop" title="Go to top">↑</button>
+    <div id="hover-textbox"></div>
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/status.js"></script>
+</body>
+
+</html>

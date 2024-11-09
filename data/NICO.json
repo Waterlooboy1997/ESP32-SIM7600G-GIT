@@ -1,0 +1,1 @@
+{"sensor": "NICO","headers":["Rec","Battery Voltage (v)","Water Level (m)","Nitrate-nitrogen (mg/L)","SQI","REFA","REFB","REFC","REFD","Water Temp (degC)"],"data":[{"time": "2024-08-23 21:16:08","values": ["2","0.000","-1.000",0,0,0,0,0,0,"-1.000"]},{"time": "2024-08-23 21:45:54","values": ["3","0.000","-1.000",0,0,0,0,0,0,"-1.000"]}]}

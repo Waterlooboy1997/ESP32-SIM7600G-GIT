@@ -1,0 +1,65 @@
+ESP32 Logger Command Documentation
+Modbus Commands
+getTriosFirmware: Prints the firmware version of the connected Trios sensor.
+getTriosTimestamp: Displays the timestamp of the connected Trios sensor.
+getTriosName: Retrieves the model name of the Trios sensor.
+setTriosMeasurement: Initiates a measurement on the Trios sensor.
+setSensorTypeNico: Configures the Trios sensor type to NICO.
+setSensorTypeOpus: Configures the Trios sensor type to OPUS.
+
+Programming Commands
+setOtaModeOn: Enables OTA (Over-The-Air) mode, allowing firmware updates.
+setOtaModeOff: Disables OTA mode.
+setAtModeOn: Enables AT mode, forwarding commands to the SIMCOM module.
+setAtModeOff: Disables AT mode.
+
+Diagnostics Commands
+poll: Performs a quick diagnostic and returns status information.
+getModemState: Prints the current state of the modem.
+getClientState: Displays the client’s connection state.
+resetBatteryMonitor: Resets the battery monitoring status.
+getModbusResultCode: Prints the latest result code from the Modbus communication.
+getGnss: Triggers GNSS data collection and updates the timestamp.
+
+Control Commands
+setMeasurementCycle: Triggers a measurement cycle within the program.
+setTimestamp=: Sets the device’s timestamp manually. Format: setTimestamp=[unix_timestamp].
+setSampleInterval=: Sets the interval for measurements in minutes. Format: setSampleInterval=[minutes].
+setRowsToUpload=: Specifies the number of rows to upload to the cloud. Format: setRowsToUpload=[row_count].
+uploadMeasurements: Manually initiates the upload of measurements to the cloud.
+getMeasurements=: Prints the last specified number of measurement rows to the serial console. Format: getMeasurements=[row_count].
+reset: Resets the ESP32 device.
+
+Modem Commands
+setModemOff: Sets the modem to turn off at a specific time (2 minutes).
+setModemOn: Configures the modem to stay on for a longer period (59 minutes).
+forceModemOff: Forces the modem to turn off.
+forceModemOn: Forces the modem to turn on.
+forcemodemcycleon: Forces the modem state to POWER_MODEM_ON.
+forcemodemcycleoff: Forces the modem state to POWER_MODEM_OFF.
+
+File Handling Commands
+uploadMeasurements (legacy): Forces upload of measurement data (legacy function).
+printJson=[filename],[timestamp],[n rows from end]: Prints JSON data based on parameters.
+updateJson=[keyPath,value,toReset?]: Sets or creates parameters in the config.json file.
+getConfig: Prints the contents of the configuration file.
+
+Sensor Data Management Commands
+savemeas: Saves the most recent measurement.
+printjson=: Prints JSON data from a specific file based on provided parameters.
+resetOpusFile: Resets the JSON file for OPUS sensor data.
+resetNicoFile: Resets the JSON file for NICO sensor data.
+updatetimestampserver: Manually updates the timestamp from the server.
+
+OTA and Configuration Commands
+otafirmware: Initiates an OTA firmware update.
+testpost: Posts data to the cloud and tests the POST request.
+testcheckcommand: Checks for commands from the server.
+printPartitions: Prints information about the ESP32's memory partitions.
+
+Hardware Control Commands
+setmcpoutput: Sets MCP port 6B as OUTPUT (ON).
+setmcpinput: Sets MCP port 6B as INPUT (OFF).
+dtrlow: Sets the DTR pin LOW on the modem.
+dtrhigh: Sets the DTR pin HIGH on the modem.
+readmodemstatuspin: Reads the modem status pin and displays the result.

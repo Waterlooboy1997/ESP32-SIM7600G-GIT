@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+        "*.tpp": "cpp",
+        "*.tcc": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "regex": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "variant": "cpp",
+        "*.inc": "cpp",
+        "bit": "cpp",
+        "compare": "cpp",
+        "condition_variable": "cpp",
+        "cstddef": "cpp",
+        "string": "cpp",
+        "future": "cpp",
+        "limits": "cpp",
+        "memory": "cpp",
+        "mutex": "cpp",
+        "new": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp"
+    }
+}

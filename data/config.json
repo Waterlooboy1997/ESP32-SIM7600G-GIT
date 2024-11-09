@@ -1,0 +1,79 @@
+{
+    "configSettings": {
+      "sampleInterval": 30,
+      "id":"307",
+      "sleepEnabled":false
+    },
+    "dynamicSampleIntervals": {
+      "lowScanRate": 60,
+      "highScanRate": 15,
+      "nitrateThreshold": 1.0,
+      "waterLevelChangeThreshold": 0.03,
+      "waterLevelThreshold": 1.0
+    },
+    "classInitializations": {
+      "rtc": {
+        "type": "RTC_DS3231"
+      },
+      "espRtc": {
+        "offset": 0
+      },
+      "wiper": {
+        "relay": 1
+      },
+      "modbus": {
+        "relay":1,
+        "sensorType":"OPUS",
+        "baud":9600,
+        "rx":19,
+        "tx":23
+      },
+      "sdi12": {
+        "relay":1,
+        "pin":18,
+        "addr":0
+      },
+      "gsmModem": {
+        "modemSerial": "SerialAT",
+        "clientIndex": 0,
+        "rx":26,
+        "tx":27
+      },
+      "battery": {
+        "method":"victron",
+        "pin": 5
+      },
+      "ioExpander": {
+        "address": "0x20"
+      }
+    },
+    "gsmConfiguration": {
+      "apn": "telstra.extranet",
+      "gprsUser": "",
+      "gprsPass": "",
+      "server": "aws-loggernet-server.ddns.net",
+      "port": 307,
+      "networkRetries": 0
+    },
+    "cameraConfiguration": {
+      "enabled": "true",
+      "relay": 2,
+      "onTime": 300000,
+      "interval": 900000
+    },
+    "systemStateFlags": {
+      "modemNetworkEnabled": true
+    },
+    "timingControl": {
+      "modemTurnsOffAtMinutes": 59
+    },
+    "WiFiSetup": {
+      "enabled": true,
+      "SSID":"ESP32_307",
+      "password":"ofbts84710",
+      "durationOn":3000000,
+      "port": 80,
+      "keepPoweredOn":true
+    }
+  }
+  
