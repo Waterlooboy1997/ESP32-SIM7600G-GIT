@@ -1,6 +1,7 @@
 PlatformIO Visual Studio Code Build
 
 Arduino version 3.0
+
 Platformio does not support Arduino version 3.0. In order to utilise the esp-arduino toolkit which includes access to netif and lwip layers for PPP connections, a fork must be included in the platformio.ini file.
 platform = https://github.com/tasmota/platform-espressif32/releases/download/2024.09.10/platform-espressif32.zip
 '
