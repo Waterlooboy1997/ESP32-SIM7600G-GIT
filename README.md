@@ -1,3 +1,7 @@
+See:
+https://github.com/Waterlooboy1997/ESP32-SIM7600G-GIT-master
+
+
 PlatformIO Visual Studio Code Build
 
 Arduino version 3.0
